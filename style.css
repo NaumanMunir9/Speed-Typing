@@ -1,13 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxygen&display=swap");
 
+:root {
+  --primary-black: #2c3531;
+  --light-blue: #66fcf1;
+  --light-grey: #c5c6c7;
+  --dark-teal: #45a29e;
+}
+
 * {
   font-family: "Oxygen", sans-serif;
   box-sizing: border-box;
 }
 
 body {
-  background-color: #10002b;
-  color: whitesmoke;
+  background-color: var(--primary-black);
+  color: var(--light-blue);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,6 +28,8 @@ button {
   padding: 5px 15px;
   border-radius: 5px;
   outline: none;
+  background-color: var(--primary-black);
+  color: var(--light-blue);
 }
 
 select {
@@ -28,13 +37,16 @@ select {
   padding: 5px;
   border-radius: 5px;
   outline: none;
-  background-color: whitesmoke;
+  background-color: var(--primary-black);
+  color: var(--light-blue);
 }
 
 .settings-btn {
   position: absolute;
   bottom: 30px;
   left: 30px;
+  background-color: var(--primary-black);
+  color: var(--light-blue);
 }
 
 .settings {
@@ -56,18 +68,20 @@ select {
 }
 
 .container {
-  background-color: #240046;
+  background-color: var(--primary-black);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 3px 5px rgba(132, 0, 255, 0.3);
-  color: whitesmoke;
+  box-shadow: 0 3px 5px rgba(69, 162, 157, 0.371);
+  color: var(--light-blue);
   position: relative;
   text-align: center;
   width: 500px;
+  text-transform: capitalize;
 }
 
 h2 {
-  background-color: rgba(132, 0, 255, 0.3);
+  background-color: var(--dark-teal);
+  color: var(--primary-black);
   padding: 10px;
   border-radius: 10px;
   margin: 0 0 40px;
@@ -78,13 +92,15 @@ h1 {
 }
 
 input {
-  border: 0;
+  border: 2px solid var(--dark-teal);
   padding: 12px 20px;
   margin-top: 10px;
   border-radius: 10px;
   font-size: 15px;
   width: 300px;
   outline: none;
+  background-color: var(--primary-black);
+  color: var(--light-blue);
 }
 
 .score-container {

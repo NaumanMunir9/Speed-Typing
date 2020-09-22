@@ -1,8 +1,8 @@
 const word = document.getElementById("word");
-const text = document.getElementById("text");
-const scoreEl = document.getElementById("score");
-const timeEl = document.getElementById("time");
-const endGameEl = document.getElementById("end-game-container");
+const input = document.getElementById("input");
+const scoreElement = document.getElementById("score");
+const timeElement = document.getElementById("time");
+const endGameElement = document.getElementById("end-game-container");
 const settingsBtn = document.getElementById("settings-btn");
 const settings = document.getElementById("settings");
 const settingsForm = document.getElementById("settings-form");
@@ -65,81 +65,38 @@ const words = [
   "plead",
 ];
 
-// init word
+// init Variables
 let randomWord;
-
-// init score
 let score = 0;
-
-// init time
 let time = 10;
 
-// set default difficulty
+input.focus();
+
 let difficulty =
   localStorage.getItem("difficulty") !== null
     ? localStorage.getItem("difficulty")
-    : "easy";
+    : "medium";
 
-// set the DifficultySelect Value
 difficultySelect.value = difficulty;
 
-// as the user come to the page, the input text bar automatically comes into focus
-text.focus();
+// Count Down
+const timeInterval = setInterval(countDown, 1000);
 
-// setInterval - a function will run every second
-const timeInterval = setInterval(updateTime, 1000);
-
-// function to get random words from the array of words
-function getRandomWords() {
+function generateRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
 }
 
-// add function to DOM
-function addWordToDOM() {
-  randomWord = getRandomWords();
+function showWordOnDOM() {
+  randomWord = generateRandomWord();
   word.innerHTML = randomWord;
 }
 
-// function to updateScore as the typed word is equals to the random word
-function updateScore() {
-  score++;
-  scoreEl.innerHTML = score;
-}
-
-// function to countdown the timer - linked with timeInterval
-function updateTime() {
-  time--;
-  timeEl.innerHTML = `${time}s`;
-
-  if (time === 0) {
-    clearInterval(timeInterval);
-    gameOver();
-  }
-}
-
-// function to show gameOver
-function gameOver() {
-  endGameEl.innerHTML = `
-    <h1>Time Ran Out</h1>
-    <p>Your Final Score Is "${score}"</p>
-    <button onClick="location.reload()" >Reload</button>
-  `;
-  endGameEl.style.display = "flex";
-}
-
-addWordToDOM();
-
-// Event Listener and the function to determine is the insertedWord === randomWord
-text.addEventListener("input", (e) => {
-  const insertedWord = e.target.value;
-
-  if (insertedWord === randomWord) {
-    addWordToDOM();
+function wordsCompare(e) {
+  const inputWord = e.target.value;
+  if (inputWord === randomWord) {
+    showWordOnDOM();
     updateScore();
-
-    // clear the input bar
     e.target.value = "";
-
     if (difficulty === "hard") {
       time += 2;
     } else if (difficulty === "medium") {
@@ -147,17 +104,45 @@ text.addEventListener("input", (e) => {
     } else {
       time += 5;
     }
-    updateTime();
+    countDown();
   }
-});
+}
 
-// EventListener to the settings button and function to hide the settingsForm
-settingsBtn.addEventListener("click", () => {
+function updateScore() {
+  score++;
+  scoreElement.innerHTML = score;
+}
+
+function countDown() {
+  time--;
+  timeElement.innerHTML = `${time}s`;
+  if (time === 0) {
+    clearInterval(timeInterval);
+    gameOver();
+  }
+}
+
+function gameOver() {
+  endGameElement.innerHTML = `
+    <h1> Time Ran Out</h1>
+    <p>Your Final Score is ${score}</p>
+    <button onClick="location.reload()" >Reload</button>
+  `;
+  endGameElement.style.display = "flex";
+}
+
+function toggleSettings() {
   settings.classList.toggle("hide");
-});
+}
 
-// EventListener to the settings form to change the difficulty level
-settings.addEventListener("change", (e) => {
+function changeDifficulty(e) {
   difficulty = e.target.value;
   localStorage.setItem("difficulty", difficulty);
-});
+}
+
+showWordOnDOM();
+
+// event Listener
+input.addEventListener("input", wordsCompare);
+settingsBtn.addEventListener("click", toggleSettings);
+settingsForm.addEventListener("change", changeDifficulty);

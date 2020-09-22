@@ -17,10 +17,10 @@
       <i class="fas fa-cog"></i>
     </button>
 
-    <div class="settings" id="settings">
+    <div id="settings" class="settings">
       <form id="settings-form">
         <div>
-          <label for="difficulty">Difficulty</label>
+          <label for="difficulty"></label>
           <select id="difficulty">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
@@ -32,19 +32,19 @@
 
     <div class="container">
       <h2>Speed Typing</h2>
-      <small>Type the following:</small>
+      <small>Type the following word: (in lowercase)</small>
 
       <h1 id="word"></h1>
 
       <input
         type="text"
-        id="text"
+        id="input"
         autocomplete="off"
-        placeholder="Type the word here"
+        placeholder="type the word here"
       />
 
       <p class="time-container">
-        Time Left:
+        Time left:
         <span id="time">10s</span>
       </p>
 
@@ -53,7 +53,7 @@
         <span id="score">0</span>
       </p>
 
-      <div id="end-game-container" class="end-game-container"></div>
+      <div class="end-game-container" id="end-game-container"></div>
     </div>
 
     <script src="script.js"></script>
